@@ -1,0 +1,132 @@
+body {
+<<<<<<< HEAD
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(to right, #6000c7, #468aff);
+    color: #fff;
+    text-align: center;
+}
+
+.welcome-container {
+    margin-bottom: 20px;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.welcome-title {
+    font-size: 36px;
+    font-weight: 700;
+    margin: 0;
+    color: #ffffff; 
+}
+
+.welcome-description {
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0;
+    color: #ffffff; 
+}
+
+.container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.button-container {
+=======
+    background-color: #6A5ACD; /* Warna ungu */
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.welcome-title {
+    margin: 0;
+    color: #FFF; /* Warna teks putih */
+}
+
+.welcome-description {
+    margin: 5px 0;
+    color: #FFF; /* Warna teks putih */
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #FFF; /* Warna latar belakang putih */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Bayangan lembut */
+}
+
+.container h1 {
+    text-align: center;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+>>>>>>> a554ce1ef0ef9aac1b359de2894192d3943eb563
+    margin-top: 20px;
+}
+
+button {
+<<<<<<< HEAD
+    background-color: #74009b;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: white;
+    color: black;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+=======
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #8A2BE2; /* Warna ungu tua */
+    color: #FFF; /* Warna teks putih */
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #7B68EE; /* Warna ungu muda saat disorot */
+>>>>>>> a554ce1ef0ef9aac1b359de2894192d3943eb563
+}
