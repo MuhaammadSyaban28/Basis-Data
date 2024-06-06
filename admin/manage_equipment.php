@@ -2,8 +2,8 @@
 include("../includes/config.php");
 include("../includes/functions.php");
 
-redirectIfNotLoggedIn();
-if (!isAdmin()) {
+belumLogin();
+if (!Admin()) {
     header("Location: ../index.php");
     exit();
 }
@@ -35,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+// Ambil data alat
 $result = $db->query("SELECT * FROM alat");
 $equipment = $result->fetch_all(MYSQLI_ASSOC);
 $result->close();
@@ -48,10 +49,10 @@ $result->close();
 <body>
     <div class="header">
         <h1>Kelola Alat-alat</h1>
-        <a href="admin_dashboard.php" class="btn">Back to Dashboard</a>
+        <a href="admin_dashboard.php" class="btn">Kembali ke Dashboard</a>
     </div>
     <div class="container">
-        <h2>Create Equipment</h2>
+        <h2>Buat Alat</h2>
         <form method="POST" action="">
             <input type="text" name="name" placeholder="Nama Alat" required>
             <textarea name="description" placeholder="Deskripsi" required></textarea>
@@ -59,16 +60,16 @@ $result->close();
                 <option value="tersedia">Tersedia</option>
                 <option value="tidak tersedia">Tidak Tersedia</option>
             </select>
-            <input type="submit" name="create" value="Create" class="btn">
+            <input type="submit" name="create" value="Buat" class="btn">
         </form>
-        <h2>Equipment</h2>
+        <h2>Alat</h2>
         <table class="table">
             <tr>
                 <th>ID Alat</th>
                 <th>Nama</th>
                 <th>Deskripsi</th>
                 <th>Status</th>
-                <th>Actions</th>
+                <th>Tindakan</th>
             </tr>
             <?php foreach ($equipment as $equip) { ?>
             <tr>
@@ -90,8 +91,8 @@ $result->close();
                     </td>
                     <td>
                         <input type="hidden" name="id_alat" value="<?php echo $equip['id_alat']; ?>">
-                        <input type="submit" name="update" value="Update" class="btn">
-                        <input type="submit" name="delete" value="Delete" class="btn">
+                        <input type="submit" name="update" value="Perbarui" class="btn">
+                        <input type="submit" name="delete" value="Hapus" class="btn">
                     </td>
                 </form>
             </tr>
