@@ -2,8 +2,8 @@
 include("../includes/config.php");
 include("../includes/functions.php");
 
-redirectIfNotLoggedIn();
-if (!isManager()) {
+belumLogin();
+if (!Manajer()) {
     header("Location: ../index.php");
     exit();
 }
