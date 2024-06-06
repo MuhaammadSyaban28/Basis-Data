@@ -2,8 +2,8 @@
 include("../includes/config.php");
 include("../includes/functions.php");
 
-redirectIfNotLoggedIn();
-if (!isOperator()) {
+belumLogin();
+if (!Operator()) {
     header("Location: ../index.php");
     exit();
 }
@@ -13,7 +13,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $start_time = $_POST['start_time'];
     $end_time = $_POST['end_time'];
 
-    $query = "SELECT * FROM ruang WHERE id_ruang NOT IN (SELECT id_ruang FROM transaksi WHERE waktu_mulai <= ? AND waktu_selesai >= ?)";
+    $query = "SELECT ruang.id_ruang, ruang.nama_ruang, ruang.kapasitas, 
+            CASE 
+                WHEN EXISTS (
+                    SELECT 1 FROM transaksi 
+                    WHERE transaksi.id_ruang = ruang.id_ruang 
+                    AND transaksi.waktu_mulai <= ? 
+                    AND transaksi.waktu_selesai >= ?
+                ) 
+                THEN 'Not Available' 
+                ELSE 'Available' 
+            END AS status 
+        FROM ruang";
+    
     $stmt = $db->prepare($query);
     $stmt->bind_param('ss', $end_time, $start_time);
     $stmt->execute();
