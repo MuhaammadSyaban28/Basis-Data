@@ -2,13 +2,50 @@
 include("../includes/config.php");
 include("../includes/functions.php");
 
-redirectIfNotLoggedIn();
-if (!isManager()) {
+belumLogin();
+if (!Manajer()) {
     header("Location: ../index.php");
     exit();
 }
 
-$result = mysqli_query($db, "SELECT * FROM ruang");
+function updateRoomStatus($db) {
+    $current_time = date('Y-m-d H:i:s');
+
+    $query = "UPDATE ruang r
+              JOIN transaksi t ON r.id_ruang = t.id_ruang
+              SET r.status = 'Available'
+              WHERE t.waktu_selesai < ? AND r.status = 'Not Available'";
+    $stmt = $db->prepare($query);
+    $stmt->bind_param('s', $current_time);
+    $stmt->execute();
+    $stmt->close();
+    
+    $query = "UPDATE ruang r
+              JOIN transaksi t ON r.id_ruang = t.id_ruang
+              SET r.status = 'Not Available'
+              WHERE t.waktu_mulai <= ? AND t.waktu_selesai >= ?";
+    $stmt = $db->prepare($query);
+    $stmt->bind_param('ss', $current_time, $current_time);
+    $stmt->execute();
+    $stmt->close();
+}
+
+updateRoomStatus($db);
+
+$query = "SELECT ruang.id_ruang, ruang.nama_ruang, ruang.kapasitas, 
+        CASE 
+            WHEN EXISTS (
+                SELECT 1 FROM transaksi 
+                WHERE transaksi.id_ruang = ruang.id_ruang 
+                AND transaksi.waktu_mulai <= NOW() 
+                AND transaksi.waktu_selesai >= NOW()
+            ) 
+            THEN 'Not Available' 
+            ELSE 'Available' 
+        END AS status 
+    FROM ruang";
+
+$result = mysqli_query($db, $query);
 $rooms = mysqli_fetch_all($result, MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
