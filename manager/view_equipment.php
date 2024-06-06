@@ -2,13 +2,27 @@
 include("../includes/config.php");
 include("../includes/functions.php");
 
-redirectIfNotLoggedIn();
-if (!isManager()) {
+belumLogin();
+if (!Manajer()) {
     header("Location: ../index.php");
     exit();
 }
 
-$result = mysqli_query($db, "SELECT * FROM alat");
+$query = "SELECT alat.id_alat, alat.nama, alat.deskripsi, 
+        CASE 
+            WHEN EXISTS (
+                SELECT 1 FROM detail_transaksi 
+                JOIN transaksi ON detail_transaksi.id_transaksi = transaksi.id_transaksi 
+                WHERE detail_transaksi.id_alat = alat.id_alat 
+                AND transaksi.waktu_mulai <= NOW() 
+                AND transaksi.waktu_selesai >= NOW()
+            ) 
+            THEN 'Not Available' 
+            ELSE 'Available' 
+        END AS status 
+    FROM alat";
+
+$result = mysqli_query($db, $query);
 $equipment = mysqli_fetch_all($result, MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
