@@ -6,8 +6,8 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-redirectIfNotLoggedIn();
-if (!isAdmin()) {
+belumLogin();
+if (!Admin()) {
     header("Location: ../index.php");
     exit();
 }
