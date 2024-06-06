@@ -10,11 +10,12 @@ if (!Admin()) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['create'])) {
+        $id_alat = $_POST['id_alat'];
         $nama = $_POST['name'];
         $deskripsi = $_POST['description'];
         $status = $_POST['status'];
-        $stmt = $db->prepare("INSERT INTO alat (nama, deskripsi, status) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $nama, $deskripsi, $status);
+        $stmt = $db->prepare("INSERT INTO alat (id_alat, nama, deskripsi, status) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("isss", $id_alat, $nama, $deskripsi, $status);
         $stmt->execute();
         $stmt->close();
     } elseif (isset($_POST['update'])) {
@@ -35,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Ambil data alat
 $result = $db->query("SELECT * FROM alat");
 $equipment = $result->fetch_all(MYSQLI_ASSOC);
 $result->close();
@@ -54,6 +54,7 @@ $result->close();
     <div class="container">
         <h2>Buat Alat</h2>
         <form method="POST" action="">
+            <input type="number" name="id_alat" placeholder="ID Alat" required>
             <input type="text" name="name" placeholder="Nama Alat" required>
             <textarea name="description" placeholder="Deskripsi" required></textarea>
             <select name="status" required>
@@ -75,7 +76,7 @@ $result->close();
             <tr>
                 <form method="POST" action="">
                     <td>
-                        <input type="number" name="id_alat" value="<?php echo $equip['id_alat']; ?>" readonly>
+                        <input type="number" name="id_alat" value="<?php echo $equip['id_alat']; ?>" required>
                     </td>
                     <td>
                         <input type="text" name="name" value="<?php echo $equip['nama']; ?>" required>
