@@ -28,9 +28,9 @@ $manager = $result->fetch_assoc();
         <h1>Manager Dashboard</h1>
         <div id="menu" class="menu">
             <a href="manage_rates.php">Manage Rates</a>
-            <a href="view_rooms.php">View Rooms</a>
+            <a href="view_room.php">View Rooms</a>
             <a href="view_equipment.php">View Equipment</a>
-            <a href="view_reports.php">View Reports</a>
+            <a href="view_report.php">View Reports</a>
             <a href="view_statistics.php">View Statistics</a>
             <a href="../logout.php">Logout</a>
         </div>
